@@ -1,33 +1,41 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main {
     public static void main(String[] args) {
 
         System.out.println("Desenvolvido por: Paulo Henrique Oliveira Silva");
-        System.out.println("=== Fase 4 - Heranca e Polimorfismo ===");
+        System.out.println("=== Fase 5 - Autenticacao e Perfis ===");
         System.out.println();
 
-        // Criando um curso de cada tipo
-        Curso cursoGeral = new Curso("Introducao a Computacao", "INT01", 60);
-        CursoPresencial presencial = new CursoPresencial("Analise e Desenvolvimento de Sistemas", "ADS01", 2000, "Sala 12");
-        CursoEAD ead = new CursoEAD("Ciencia de Dados", "CDD01", 1800, "Moodle");
+        // O curso que o aluno vai cursar
+        Curso curso = new Curso("Analise e Desenvolvimento de Sistemas", "ADS01", 2000);
 
-        // Uma lista de Curso aceita os tres tipos
-        List<Curso> cursos = new ArrayList<>();
-        cursos.add(cursoGeral);
-        cursos.add(presencial);
-        cursos.add(ead);
+        // Criando um usuario de cada perfil (cada um com login e senha)
+        Aluno aluno = new Aluno("Maria Souza", "maria", "aluno123", "2024001", curso);
+        Professor professor = new Professor("Carlos Mendes", "carlos", "prof456", "Programacao", "RF-00123");
+        Administrador admin = new Administrador("Fernanda Rocha", "fernanda", "admin789", "Coordenadora");
 
-        // Polimorfismo: o mesmo comando, um resultado diferente para cada tipo
-        for (Curso c : cursos) {
-            c.detalharCurso();
-            System.out.println();
-        }
+        // Testando a autenticacao do aluno
+        System.out.println("--- Aluno: " + aluno.getNome() + " ---");
+        System.out.println("Login e senha corretos: " + aluno.autenticar("maria", "aluno123"));
+        System.out.println("Senha errada: " + aluno.autenticar("maria", "senha-errada"));
+        System.out.println();
 
-        // Um aluno pode se matricular em qualquer tipo de curso
-        Aluno aluno = new Aluno("Maria Souza", "2024001", ead);
-        System.out.println("O aluno " + aluno.getNome() + " cursa:");
-        aluno.getCurso().detalharCurso();
+        // Testando a autenticacao do professor
+        System.out.println("--- Professor: " + professor.getNome() + " ---");
+        System.out.println("Login e senha corretos: " + professor.autenticar("carlos", "prof456"));
+        System.out.println("Login errado: " + professor.autenticar("outro", "prof456"));
+        System.out.println();
+
+        // Testando a autenticacao do administrador
+        System.out.println("--- Administrador: " + admin.getNome() + " (" + admin.getCargo() + ") ---");
+        System.out.println("Login e senha corretos: " + admin.autenticar("fernanda", "admin789"));
+        System.out.println("Senha errada: " + admin.autenticar("fernanda", "123456"));
+        System.out.println();
+
+        // A interface funciona como tipo: qualquer perfil cabe em uma variavel Autenticacao
+        System.out.println("--- Usando a interface como tipo ---");
+        Autenticacao acesso = professor;
+        System.out.println("Professor pela interface: " + acesso.autenticar("carlos", "prof456"));
+        acesso = admin;
+        System.out.println("Administrador pela interface: " + acesso.autenticar("fernanda", "admin789"));
     }
 }

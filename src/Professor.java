@@ -1,17 +1,12 @@
-public class Professor {
+public class Professor extends Usuario implements Autenticacao {
 
-    private String nome;
     private String especialidade;
     private String registro;
 
-    public Professor(String nome, String especialidade, String registro) {
-        this.nome = nome;
+    public Professor(String nome, String login, String senha, String especialidade, String registro) {
+        super(nome, login, senha);
         this.especialidade = especialidade;
         this.registro = registro;
-    }
-
-    public String getNome() {
-        return nome;
     }
 
     public String getEspecialidade() {
@@ -20,6 +15,11 @@ public class Professor {
 
     public String getRegistro() {
         return registro;
+    }
+
+    @Override
+    public boolean autenticar(String login, String senha) {
+        return credenciaisConferem(login, senha);
     }
 
 }
