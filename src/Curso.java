@@ -23,4 +23,10 @@ public class Curso {
         return cargaHoraria;
     }
 
+        // Mostra as informacoes do curso. As subclasses vao sobrescrever este metodo
+    public void detalharCurso() {
+        System.out.println("Curso: " + nome);
+        System.out.println("Codigo: " + codigo);
+        System.out.println("Carga horaria: " + cargaHoraria + " horas");
+    }
 }
