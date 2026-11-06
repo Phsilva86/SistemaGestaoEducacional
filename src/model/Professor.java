@@ -1,3 +1,5 @@
+package model;
+
 public class Professor extends Usuario implements Autenticacao, Relatorio {
 
     private String especialidade;

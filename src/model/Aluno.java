@@ -1,3 +1,5 @@
+package model;
+
 public class Aluno extends Usuario implements Autenticacao, Relatorio {
 
     private String matricula;

@@ -1,3 +1,5 @@
+package model;
+
 public class CursoEAD extends Curso {
 
     private String plataformaVirtual;

@@ -1,3 +1,5 @@
+package model;
+
 public class Administrador extends Usuario implements Autenticacao {
 
     private String cargo;

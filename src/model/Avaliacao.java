@@ -1,3 +1,5 @@
+package model;
+
 public class Avaliacao {
 
     private double nota;

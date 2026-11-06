@@ -1,3 +1,5 @@
+package model;
+
 public class CursoPresencial extends Curso {
 
     private String salaDeAula;

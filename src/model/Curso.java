@@ -1,3 +1,5 @@
+package model;
+
 public class Curso implements Relatorio {
 
     private String nome;
