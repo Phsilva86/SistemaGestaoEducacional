@@ -1,4 +1,4 @@
-public class Professor extends Usuario implements Autenticacao {
+public class Professor extends Usuario implements Autenticacao, Relatorio {
 
     private String especialidade;
     private String registro;
@@ -20,6 +20,16 @@ public class Professor extends Usuario implements Autenticacao {
     @Override
     public boolean autenticar(String login, String senha) {
         return credenciaisConferem(login, senha);
+    }
+
+    // Cumpre o contrato Relatorio
+    @Override
+    public void gerarRelatorio() {
+        System.out.println("===== RELATORIO DE PROFESSOR =====");
+        System.out.println("Nome: " + getNome());
+        System.out.println("Especialidade: " + especialidade);
+        System.out.println("Registro: " + registro);
+        System.out.println("==================================");
     }
 
 }

@@ -1,4 +1,4 @@
-public class Aluno extends Usuario implements Autenticacao {
+public class Aluno extends Usuario implements Autenticacao, Relatorio {
 
     private String matricula;
     private Curso curso;
@@ -20,6 +20,17 @@ public class Aluno extends Usuario implements Autenticacao {
     @Override
     public boolean autenticar(String login, String senha) {
         return credenciaisConferem(login, senha);
+    }
+
+    // Cumpre o contrato Relatorio
+    @Override
+    public void gerarRelatorio() {
+        System.out.println("===== RELATORIO DE ALUNO =====");
+        System.out.println("Nome: " + getNome());
+        System.out.println("Matricula: " + matricula);
+        System.out.println("Curso: " + curso.getNome());
+        System.out.println("Carga horaria do curso: " + curso.getCargaHoraria() + " horas");
+        System.out.println("==============================");
     }
 
 }

@@ -1,4 +1,4 @@
-public class Curso {
+public class Curso implements Relatorio {
 
     private String nome;
     private String codigo;
@@ -10,7 +10,6 @@ public class Curso {
         this.cargaHoraria = cargaHoraria;
     }
 
-    // Getters: permitem ler os dados privados
     public String getNome() {
         return nome;
     }
@@ -23,10 +22,19 @@ public class Curso {
         return cargaHoraria;
     }
 
-        // Mostra as informacoes do curso. As subclasses vao sobrescrever este metodo
+    // Mostra as informacoes do curso. As subclasses sobrescrevem este metodo
     public void detalharCurso() {
         System.out.println("Curso: " + nome);
         System.out.println("Codigo: " + codigo);
         System.out.println("Carga horaria: " + cargaHoraria + " horas");
     }
+
+    // Cumpre o contrato Relatorio
+    @Override
+    public void gerarRelatorio() {
+        System.out.println("===== RELATORIO DE CURSO =====");
+        detalharCurso();
+        System.out.println("==============================");
+    }
+
 }

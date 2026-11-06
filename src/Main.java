@@ -1,41 +1,94 @@
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
 
         System.out.println("Desenvolvido por: Paulo Henrique Oliveira Silva");
-        System.out.println("=== Fase 5 - Autenticacao e Perfis ===");
+        System.out.println("=== Fase 6 - Relatorios e Estatisticas ===");
         System.out.println();
 
-        // O curso que o aluno vai cursar
-        Curso curso = new Curso("Analise e Desenvolvimento de Sistemas", "ADS01", 2000);
+        // Criando os cursos (um de cada tipo)
+        Curso presencial = new CursoPresencial("Analise e Desenvolvimento de Sistemas", "ADS01", 2000, "Sala 12");
+        Curso ead = new CursoEAD("Ciencia de Dados", "CDD01", 1800, "Moodle");
 
-        // Criando um usuario de cada perfil (cada um com login e senha)
-        Aluno aluno = new Aluno("Maria Souza", "maria", "aluno123", "2024001", curso);
-        Professor professor = new Professor("Carlos Mendes", "carlos", "prof456", "Programacao", "RF-00123");
-        Administrador admin = new Administrador("Fernanda Rocha", "fernanda", "admin789", "Coordenadora");
+        // Criando alunos e professores
+        Aluno aluno1 = new Aluno("Maria Souza", "maria", "aluno123", "2024001", presencial);
+        Aluno aluno2 = new Aluno("Joao Pereira", "joao", "aluno456", "2024002", ead);
+        Professor prof1 = new Professor("Carlos Mendes", "carlos", "prof456", "Programacao", "RF-00123");
+        Professor prof2 = new Professor("Patricia Alves", "patricia", "prof789", "Banco de Dados", "RF-00456");
 
-        // Testando a autenticacao do aluno
-        System.out.println("--- Aluno: " + aluno.getNome() + " ---");
-        System.out.println("Login e senha corretos: " + aluno.autenticar("maria", "aluno123"));
-        System.out.println("Senha errada: " + aluno.autenticar("maria", "senha-errada"));
-        System.out.println();
+        // Listas de cada tipo
+        List<Aluno> alunos = new ArrayList<>();
+        alunos.add(aluno1);
+        alunos.add(aluno2);
 
-        // Testando a autenticacao do professor
-        System.out.println("--- Professor: " + professor.getNome() + " ---");
-        System.out.println("Login e senha corretos: " + professor.autenticar("carlos", "prof456"));
-        System.out.println("Login errado: " + professor.autenticar("outro", "prof456"));
-        System.out.println();
+        List<Professor> professores = new ArrayList<>();
+        professores.add(prof1);
+        professores.add(prof2);
 
-        // Testando a autenticacao do administrador
-        System.out.println("--- Administrador: " + admin.getNome() + " (" + admin.getCargo() + ") ---");
-        System.out.println("Login e senha corretos: " + admin.autenticar("fernanda", "admin789"));
-        System.out.println("Senha errada: " + admin.autenticar("fernanda", "123456"));
-        System.out.println();
+        List<Curso> cursos = new ArrayList<>();
+        cursos.add(presencial);
+        cursos.add(ead);
 
-        // A interface funciona como tipo: qualquer perfil cabe em uma variavel Autenticacao
-        System.out.println("--- Usando a interface como tipo ---");
-        Autenticacao acesso = professor;
-        System.out.println("Professor pela interface: " + acesso.autenticar("carlos", "prof456"));
-        acesso = admin;
-        System.out.println("Administrador pela interface: " + acesso.autenticar("fernanda", "admin789"));
+        // Uma lista que guarda qualquer coisa que gere relatorio (polimorfismo)
+        List<Relatorio> todos = new ArrayList<>();
+        todos.addAll(alunos);
+        todos.addAll(professores);
+        todos.addAll(cursos);
+
+        Scanner scanner = new Scanner(System.in);
+        boolean continuar = true;
+
+        // Laco do menu: repete ate o usuario escolher sair
+        while (continuar) {
+            System.out.println("------ MENU DE RELATORIOS ------");
+            System.out.println("1 - Relatorio de alunos");
+            System.out.println("2 - Relatorio de professores");
+            System.out.println("3 - Relatorio de cursos");
+            System.out.println("4 - Todos os relatorios em sequencia");
+            System.out.println("0 - Sair");
+            System.out.print("Escolha uma opcao: ");
+
+            String opcao = scanner.nextLine();
+            System.out.println();
+
+            switch (opcao) {
+                case "1":
+                    for (Aluno a : alunos) {
+                        a.gerarRelatorio();
+                        System.out.println();
+                    }
+                    break;
+                case "2":
+                    for (Professor p : professores) {
+                        p.gerarRelatorio();
+                        System.out.println();
+                    }
+                    break;
+                case "3":
+                    for (Curso c : cursos) {
+                        c.gerarRelatorio();
+                        System.out.println();
+                    }
+                    break;
+                case "4":
+                    for (Relatorio r : todos) {
+                        r.gerarRelatorio();
+                        System.out.println();
+                    }
+                    break;
+                case "0":
+                    continuar = false;
+                    System.out.println("Encerrando o sistema. Ate logo!");
+                    break;
+                default:
+                    System.out.println("Opcao invalida. Tente novamente.");
+                    System.out.println();
+            }
+        }
+
+        scanner.close();
     }
 }
