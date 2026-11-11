@@ -1,6 +1,6 @@
 package model;
 
-public class Avaliacao {
+public class Avaliacao implements Relatorio {
 
     private double nota;
     private String descricao;
@@ -38,6 +38,17 @@ public class Avaliacao {
         } else {
             System.out.println("Nota invalida: " + valor + ". Informe um valor entre 0 e 10.");
         }
+    }
+
+    // Cumpre o contrato Relatorio
+    @Override
+    public void gerarRelatorio() {
+        System.out.println("===== RELATORIO DE AVALIACAO =====");
+        System.out.println("Descricao: " + descricao);
+        System.out.println("Aluno: " + aluno.getNome());
+        System.out.println("Turma: " + turma.getCodigo());
+        System.out.println("Nota: " + nota);
+        System.out.println("==================================");
     }
 
 }
